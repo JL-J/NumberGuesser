@@ -25,6 +25,13 @@ namespace NumberGuesser
             while (guess != randomNumber)
             {
                 string usersGuess = Console.ReadLine();
+                if (!int.TryParse(usersGuess, out guess))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Sorry, but that's not a number. Please try again");
+                    Console.ResetColor();
+                    continue; 
+                }
                 guess = Int32.Parse(usersGuess); 
                 if (guess != randomNumber)
                 {
@@ -33,6 +40,9 @@ namespace NumberGuesser
                     Console.ResetColor();
                 }
             }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Congrats! You guessed my number!");
+            Console.ResetColor(); 
         }
     }
 }
