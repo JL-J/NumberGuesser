@@ -19,32 +19,48 @@ namespace NumberGuesser
 
             Console.WriteLine($"Ok {usersName}, let's play a game!");
 
-            Random random = new Random();
-            int randomNumber = random.Next(1,11);
-
-            int guess = 0;
-            Console.WriteLine("Guess a number between 1 and 10.");
-            while (guess != randomNumber)
+            while (true)
             {
-                string usersGuess = Console.ReadLine();
-                if (!int.TryParse(usersGuess, out guess))
+
+                Random random = new Random();
+                int randomNumber = random.Next(1, 11);
+
+                int guess = 0;
+                Console.WriteLine("Guess a number between 1 and 10.");
+                while (guess != randomNumber)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Sorry, but that's not a number. Please try again");
-                    Console.ResetColor();
-                    continue; 
+                    string usersGuess = Console.ReadLine();
+                    if (!int.TryParse(usersGuess, out guess))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Sorry, but that's not a number. Please try again");
+                        Console.ResetColor();
+                        continue;
+                    }
+                    guess = Int32.Parse(usersGuess);
+                    if (guess != randomNumber)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Sorry, that's not the number I'm thinking of. Please guess again.");
+                        Console.ResetColor();
+                    }
                 }
-                guess = Int32.Parse(usersGuess); 
-                if (guess != randomNumber)
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Congrats! You guessed my number!");
+                Console.ResetColor();
+
+                Console.WriteLine("Do you want to play again? [Y or N]");
+                string answer = Console.ReadLine().ToUpper();
+                if (answer == "Y")
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Sorry, that's not the number I'm thinking of. Please guess again.");
-                    Console.ResetColor();
+                    continue;
                 }
+                else
+                {
+                    return;
+                }
+                     
             }
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Congrats! You guessed my number!");
-            Console.ResetColor(); 
         }
     }
 }
